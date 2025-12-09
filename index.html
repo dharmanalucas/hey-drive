@@ -1,0 +1,2514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Drive | Premium Used Vehicles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS VARIABLES & RESET
+        ============================================ */
+        :root {
+            --color-bg: #faf9f7;
+            --color-bg-alt: #f3f1ed;
+            --color-surface: #ffffff;
+            --color-text: #1a1a1a;
+            --color-text-muted: #6b6b6b;
+            --color-text-light: #999;
+            --color-primary: #2c3e50;
+            --color-primary-dark: #1a252f;
+            --color-accent: #c9a962;
+            --color-accent-hover: #b8943d;
+            --color-success: #2d8a5f;
+            --color-border: #e5e2dc;
+            --color-border-light: #f0ede8;
+            
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
+            --shadow-card: 0 2px 12px rgba(0,0,0,0.04);
+            
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --container-max: 1320px;
+            --container-padding: 24px;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--color-text);
+            background: var(--color-bg);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+        ============================================ */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* ============================================
+           HEADER & NAVIGATION
+        ============================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border-light);
+            transition: box-shadow var(--transition);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-svg {
+            display: block;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-accent);
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--color-primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .nav {
+            display: none;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            border-radius: var(--radius-md);
+            transition: all var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-text);
+            background: var(--color-bg-alt);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-phone {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-primary);
+            border-radius: var(--radius-md);
+            transition: all var(--transition);
+        }
+
+        .header-phone:hover {
+            background: var(--color-bg-alt);
+        }
+
+        .header-phone svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            transition: all var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            border: 1.5px solid var(--color-border);
+            color: var(--color-text);
+            background: var(--color-surface);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-primary);
+            background: var(--color-bg-alt);
+        }
+
+        .btn-accent {
+            background: var(--color-accent);
+            color: var(--color-primary-dark);
+        }
+
+        .btn-accent:hover {
+            background: var(--color-accent-hover);
+        }
+
+        .mobile-menu-btn {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 8px;
+            margin-right: -8px;
+        }
+
+        .mobile-menu-btn span {
+            width: 22px;
+            height: 2px;
+            background: var(--color-text);
+            border-radius: 2px;
+            transition: all var(--transition);
+        }
+
+        /* ============================================
+           MOBILE NAVIGATION
+        ============================================ */
+        .mobile-nav {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            visibility: hidden;
+            opacity: 0;
+            transition: all var(--transition);
+        }
+
+        .mobile-nav.open {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .mobile-nav-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .mobile-nav-panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: min(320px, 85vw);
+            height: 100%;
+            background: var(--color-surface);
+            padding: 24px;
+            transform: translateX(100%);
+            transition: transform var(--transition);
+        }
+
+        .mobile-nav.open .mobile-nav-panel {
+            transform: translateX(0);
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .mobile-nav-close {
+            padding: 8px;
+            margin-right: -8px;
+        }
+
+        .mobile-nav-close svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .mobile-nav-list {
+            list-style: none;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 16px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--color-text);
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        .mobile-nav-contact {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .mobile-nav-contact a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            color: var(--color-text-muted);
+            font-size: 14px;
+        }
+
+        .mobile-nav-contact svg {
+            width: 20px;
+            height: 20px;
+            color: var(--color-primary);
+        }
+
+        /* ============================================
+           HERO SECTION
+        ============================================ */
+        .hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+        }
+
+        .hero-inner {
+            display: grid;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: var(--color-bg-alt);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--color-success);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 500;
+            line-height: 1.15;
+            color: var(--color-primary-dark);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero-title span {
+            color: var(--color-accent);
+        }
+
+        .hero-subtitle {
+            font-size: 17px;
+            line-height: 1.7;
+            color: var(--color-text-muted);
+            max-width: 520px;
+            margin-bottom: 32px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            padding: 32px;
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border-light);
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 4px;
+        }
+
+        .hero-stat-label {
+            font-size: 13px;
+            color: var(--color-text-muted);
+        }
+
+        /* ============================================
+           SEARCH/FILTER BAR
+        ============================================ */
+        .search-section {
+            padding: 0 0 60px;
+            margin-top: -20px;
+        }
+
+        .search-bar {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border-light);
+        }
+
+        .search-bar-inner {
+            display: grid;
+            gap: 16px;
+        }
+
+        .search-row {
+            display: grid;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-select,
+        .form-input {
+            height: 48px;
+            padding: 0 16px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--color-text);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            transition: all var(--transition);
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+
+        .form-select:focus,
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            background: var(--color-surface);
+        }
+
+        .search-btn {
+            height: 48px;
+            width: 100%;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            font-size: 13px;
+            color: var(--color-text-muted);
+            background: var(--color-bg);
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .filter-tag:hover {
+            color: var(--color-text);
+            background: var(--color-bg-alt);
+        }
+
+        .filter-tag.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        /* ============================================
+           INVENTORY SECTION
+        ============================================ */
+        .inventory-section {
+            padding: 60px 0 100px;
+        }
+
+        .section-header {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--color-primary-dark);
+        }
+
+        .section-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: var(--color-text-muted);
+        }
+
+        .sort-select {
+            height: 40px;
+            padding: 0 36px 0 14px;
+            font-size: 13px;
+        }
+
+        .inventory-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        /* Vehicle Card */
+        .vehicle-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--color-border-light);
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .vehicle-card-image {
+            position: relative;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            background: var(--color-bg-alt);
+        }
+
+        .vehicle-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .vehicle-card:hover .vehicle-card-image img {
+            transform: scale(1.05);
+        }
+
+        .vehicle-card-badges {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .vehicle-badge {
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-radius: var(--radius-sm);
+            background: var(--color-surface);
+            color: var(--color-text);
+        }
+
+        .vehicle-badge.featured {
+            background: var(--color-accent);
+            color: var(--color-primary-dark);
+        }
+
+        .vehicle-badge.low-miles {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .vehicle-card-content {
+            padding: 20px;
+        }
+
+        .vehicle-card-header {
+            margin-bottom: 16px;
+        }
+
+        .vehicle-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .vehicle-card-subtitle {
+            font-size: 14px;
+            color: var(--color-text-muted);
+        }
+
+        .vehicle-card-price {
+            font-family: var(--font-display);
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+            margin-bottom: 16px;
+        }
+
+        .vehicle-card-price small {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--color-text-muted);
+        }
+
+        .vehicle-card-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .vehicle-spec {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--color-text-muted);
+        }
+
+        .vehicle-spec svg {
+            width: 16px;
+            height: 16px;
+            color: var(--color-text-light);
+        }
+
+        .vehicle-card-footer {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .vehicle-card-footer .btn {
+            flex: 1;
+            padding: 10px 16px;
+            font-size: 13px;
+        }
+
+        /* ============================================
+           VEHICLE DETAIL MODAL
+        ============================================ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition);
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2001;
+            overflow-y: auto;
+            display: flex;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition);
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: auto;
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transform: translateY(20px);
+            transition: transform var(--transition);
+        }
+
+        .modal.open .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-surface);
+            border-radius: 50%;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--color-bg);
+            transform: scale(1.1);
+        }
+
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .modal-gallery {
+            position: relative;
+            aspect-ratio: 16/9;
+            background: var(--color-bg-alt);
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-surface);
+            border-radius: 50%;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition);
+        }
+
+        .gallery-nav:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .gallery-nav.prev { left: 16px; }
+        .gallery-nav.next { right: 16px; }
+
+        .gallery-dots {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .gallery-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            transition: all var(--transition);
+        }
+
+        .gallery-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .modal-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--color-border-light);
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--color-primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 15px;
+            color: var(--color-text-muted);
+        }
+
+        .modal-price {
+            text-align: right;
+        }
+
+        .modal-price-value {
+            font-family: var(--font-display);
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--color-primary-dark);
+        }
+
+        .modal-price-finance {
+            font-size: 14px;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        .modal-specs-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .modal-spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: var(--color-bg);
+            border-radius: var(--radius-md);
+        }
+
+        .modal-spec-label {
+            font-size: 14px;
+            color: var(--color-text-muted);
+        }
+
+        .modal-spec-value {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .modal-description {
+            margin-bottom: 32px;
+        }
+
+        .modal-description h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--color-primary-dark);
+        }
+
+        .modal-description p {
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .modal-features {
+            margin-bottom: 32px;
+        }
+
+        .modal-features h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--color-primary-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--color-text-muted);
+        }
+
+        .feature-item svg {
+            width: 18px;
+            height: 18px;
+            color: var(--color-success);
+            flex-shrink: 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-top: 24px;
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* ============================================
+           WHY CHOOSE US SECTION
+        ============================================ */
+        .why-section {
+            padding: 80px 0;
+            background: var(--color-primary-dark);
+            color: white;
+        }
+
+        .why-section .section-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .why-subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+
+        .why-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .why-card {
+            padding: 32px;
+            background: rgba(255,255,255,0.05);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all var(--transition);
+        }
+
+        .why-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-4px);
+        }
+
+        .why-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-accent);
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            color: var(--color-primary-dark);
+        }
+
+        .why-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .why-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           CONTACT SECTION
+        ============================================ */
+        .contact-section {
+            padding: 80px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            gap: 48px;
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--color-primary-dark);
+            margin-bottom: 16px;
+        }
+
+        .contact-info p {
+            color: var(--color-text-muted);
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .contact-item-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-alt);
+            border-radius: var(--radius-md);
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        .contact-item-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .contact-item-content h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .contact-item-content p,
+        .contact-item-content a {
+            font-size: 14px;
+            color: var(--color-text-muted);
+        }
+
+        .contact-item-content a:hover {
+            color: var(--color-primary);
+        }
+
+        .contact-form-wrapper {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border-light);
+        }
+
+        .contact-form-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--color-primary-dark);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            gap: 16px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+        }
+
+        .form-textarea {
+            height: 120px;
+            padding: 14px 16px;
+            resize: vertical;
+        }
+
+        /* ============================================
+           FOOTER
+        ============================================ */
+        .footer {
+            background: var(--color-primary-dark);
+            color: white;
+            padding: 60px 0 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand .logo-text {
+            color: white;
+        }
+
+        .footer-brand p {
+            margin-top: 16px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-links h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            display: block;
+            padding: 8px 0;
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            transition: color var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            transition: color var(--transition);
+        }
+
+        .footer-legal a:hover {
+            color: var(--color-accent);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+        ============================================ */
+        @media (min-width: 640px) {
+            .search-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .inventory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modal-specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            :root {
+                --container-padding: 32px;
+            }
+
+            .header-phone {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .nav {
+                display: block;
+            }
+
+            .hero {
+                padding: 140px 0 100px;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 60px;
+            }
+
+            .search-row {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .search-btn {
+                width: auto;
+            }
+
+            .section-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .inventory-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .modal-specs-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* ============================================
+           ANIMATIONS
+        ============================================ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--color-border);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .no-results h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .no-results p {
+            color: var(--color-text-muted);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <svg class="logo-svg" width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Hand wave icon morphing into speed lines -->
+                        <g class="logo-icon-group">
+                            <!-- Stylized waving hand/motion mark -->
+                            <path d="M8 20C8 20 10 12 14 10C16 9 18 10 18 13C18 15 17 18 17 18" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M17 18C17 18 19 11 22 10C24 9.5 26 11 25 14C24 17 22 20 22 20" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M22 20C22 20 24 15 27 15C29 15 30 17 29 19C28 21 25 24 25 24" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round"/>
+                            <!-- Speed lines -->
+                            <path d="M4 16H10" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M2 20H8" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M5 24H11" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                        </g>
+                        <!-- Wordmark -->
+                        <text x="38" y="25" font-family="'Playfair Display', Georgia, serif" font-size="22" font-weight="600" fill="var(--color-primary-dark)">Hey</text>
+                        <text x="76" y="25" font-family="'DM Sans', sans-serif" font-size="22" font-weight="500" fill="var(--color-primary)">Drive</text>
+                    </svg>
+                </a>
+
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#" class="nav-link active">Home</a></li>
+                        <li><a href="#inventory" class="nav-link">Our Vehicles</a></li>
+                        <li><a href="#about" class="nav-link">About Us</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="tel:07700900000" class="header-phone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        07700 900 000
+                    </a>
+                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+        <div class="mobile-nav-panel">
+            <div class="mobile-nav-header">
+                <svg class="logo-svg" width="120" height="32" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g class="logo-icon-group">
+                        <path d="M8 20C8 20 10 12 14 10C16 9 18 10 18 13C18 15 17 18 17 18" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M17 18C17 18 19 11 22 10C24 9.5 26 11 25 14C24 17 22 20 22 20" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M22 20C22 20 24 15 27 15C29 15 30 17 29 19C28 21 25 24 25 24" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M4 16H10" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M2 20H8" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M5 24H11" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                    </g>
+                    <text x="38" y="25" font-family="'Playfair Display', Georgia, serif" font-size="22" font-weight="600" fill="var(--color-primary-dark)">Hey</text>
+                    <text x="76" y="25" font-family="'DM Sans', sans-serif" font-size="22" font-weight="500" fill="var(--color-primary)">Drive</text>
+                </svg>
+                <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <ul class="mobile-nav-list">
+                <li><a href="#" class="mobile-nav-link">Home</a></li>
+                <li><a href="#inventory" class="mobile-nav-link">Our Vehicles</a></li>
+                <li><a href="#about" class="mobile-nav-link">About Us</a></li>
+                <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+            </ul>
+            <div class="mobile-nav-contact">
+                <a href="tel:07700900000">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    07700 900 000
+                </a>
+                <a href="mailto:info@heydrive.co.uk">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    info@heydrive.co.uk
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-content">
+                    <div class="hero-badge animate-in">Now taking enquiries</div>
+                    <h1 class="hero-title animate-in animate-delay-1">
+                        Premium Vehicles,<br><span>Honestly Priced</span>
+                    </h1>
+                    <p class="hero-subtitle animate-in animate-delay-2">
+                        Hand-selected used vehicles with full history checks, comprehensive warranties, and transparent pricing. No pressure, no hidden fees—just quality cars and honest service.
+                    </p>
+                    <div class="hero-actions animate-in animate-delay-3">
+                        <a href="#inventory" class="btn btn-primary">Browse Our Stock</a>
+                        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                    </div>
+                </div>
+                <div class="hero-stats animate-in animate-delay-3">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">50+</div>
+                        <div class="hero-stat-label">Vehicles in Stock</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">98%</div>
+                        <div class="hero-stat-label">Customer Satisfaction</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">12mo</div>
+                        <div class="hero-stat-label">Warranty Included</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-bar">
+                <div class="search-bar-inner">
+                    <div class="search-row">
+                        <div class="form-group">
+                            <label class="form-label" for="searchMake">Make</label>
+                            <select class="form-select" id="searchMake">
+                                <option value="">All Makes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="searchModel">Model</label>
+                            <select class="form-select" id="searchModel">
+                                <option value="">All Models</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="searchPrice">Max Price</label>
+                            <select class="form-select" id="searchPrice">
+                                <option value="">Any Price</option>
+                                <option value="10000">Up to £10,000</option>
+                                <option value="15000">Up to £15,000</option>
+                                <option value="20000">Up to £20,000</option>
+                                <option value="25000">Up to £25,000</option>
+                                <option value="30000">Up to £30,000</option>
+                                <option value="40000">Up to £40,000</option>
+                                <option value="50000">Up to £50,000</option>
+                                <option value="75000">Up to £75,000</option>
+                                <option value="100000">Up to £100,000</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="display: flex; align-items: flex-end;">
+                            <button class="btn btn-primary search-btn" id="searchBtn">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                                </svg>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <div class="filter-tags" id="filterTags">
+                        <button class="filter-tag active" data-filter="all">All Vehicles</button>
+                        <button class="filter-tag" data-filter="petrol">Petrol</button>
+                        <button class="filter-tag" data-filter="diesel">Diesel</button>
+                        <button class="filter-tag" data-filter="hybrid">Hybrid</button>
+                        <button class="filter-tag" data-filter="electric">Electric</button>
+                        <button class="filter-tag" data-filter="automatic">Automatic</button>
+                        <button class="filter-tag" data-filter="manual">Manual</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inventory Section -->
+    <section class="inventory-section" id="inventory">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Our Current Stock</h2>
+                    <p class="results-count"><span id="resultsCount">0</span> vehicles available</p>
+                </div>
+                <div class="section-meta">
+                    <select class="form-select sort-select" id="sortSelect">
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="mileage-asc">Mileage: Low to High</option>
+                        <option value="year-desc">Newest First</option>
+                    </select>
+                </div>
+            </div>
+            <div class="inventory-grid" id="inventoryGrid">
+                <!-- Vehicles will be rendered here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-section" id="about">
+        <div class="container">
+            <h2 class="section-title">Why Choose Hey Drive</h2>
+            <p class="why-subtitle">From "hey" to the driver's seat—fast. We believe buying a used car should be straightforward and swift. No games, no delays—just great vehicles at fair prices.</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            <polyline points="9 12 11 14 15 10"/>
+                        </svg>
+                    </div>
+                    <h3>Full History Checks</h3>
+                    <p>Every vehicle undergoes comprehensive HPI checks covering finance, write-offs, mileage verification, and theft records.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
+                    <h3>Finance Available</h3>
+                    <p>Competitive finance packages tailored to your circumstances. Quick decisions with rates from leading UK lenders.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                    </div>
+                    <h3>Warranty Included</h3>
+                    <p>All vehicles come with a minimum 3-month warranty. Extended cover available up to 24 months for complete peace of mind.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Personal Service</h3>
+                    <p>We're an independent dealership, not a faceless chain. Speak directly with the team who know every vehicle in stock.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>Whether you've found your perfect vehicle or just want to discuss your requirements, we're here to help. No pressure, no obligations—just honest advice.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Phone</h4>
+                                <a href="tel:07700900000">07700 900 000</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Email</h4>
+                                <a href="mailto:info@heydrive.co.uk">info@heydrive.co.uk</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Location</h4>
+                                <p>Manchester, Greater Manchester</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div class="contact-item-content">
+                                <h4>Opening Hours</h4>
+                                <p>Mon–Fri: 9am–6pm<br>Sat: 10am–4pm<br>Sun: By appointment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-wrapper">
+                    <h4 class="contact-form-title">Send us an Enquiry</h4>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="contactName">Your Name</label>
+                                <input type="text" class="form-input" id="contactName" placeholder="John Smith" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contactPhone">Phone Number</label>
+                                <input type="tel" class="form-input" id="contactPhone" placeholder="07700 900 000" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="contactEmail">Email Address</label>
+                            <input type="email" class="form-input" id="contactEmail" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="contactVehicle">Vehicle of Interest</label>
+                            <select class="form-select" id="contactVehicle">
+                                <option value="">Select a vehicle (optional)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="contactMessage">Your Message</label>
+                            <textarea class="form-input form-textarea" id="contactMessage" placeholder="Tell us about your requirements..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Enquiry</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <svg class="logo-svg" width="140" height="36" viewBox="0 0 140 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g class="logo-icon-group">
+                                <path d="M8 20C8 20 10 12 14 10C16 9 18 10 18 13C18 15 17 18 17 18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M17 18C17 18 19 11 22 10C24 9.5 26 11 25 14C24 17 22 20 22 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M22 20C22 20 24 15 27 15C29 15 30 17 29 19C28 21 25 24 25 24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M4 16H10" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M2 20H8" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M5 24H11" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"/>
+                            </g>
+                            <text x="38" y="25" font-family="'Playfair Display', Georgia, serif" font-size="22" font-weight="600" fill="white">Hey</text>
+                            <text x="76" y="25" font-family="'DM Sans', sans-serif" font-size="22" font-weight="500" fill="rgba(255,255,255,0.8)">Drive</text>
+                        </svg>
+                    </div>
+                    <p>Say hey, drive away. Premium used vehicles with speed and service that gets you on the road fast. Serving Greater Manchester and beyond.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#inventory">Our Vehicles</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Car Finance</a></li>
+                        <li><a href="#">Part Exchange</a></li>
+                        <li><a href="#">Warranty</a></li>
+                        <li><a href="#">Vehicle Sourcing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:07700900000">07700 900 000</a></li>
+                        <li><a href="mailto:info@heydrive.co.uk">info@heydrive.co.uk</a></li>
+                        <li><a href="#">Manchester, UK</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2024 Hey Drive. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vehicle Detail Modal -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal" id="vehicleModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <div class="modal-gallery">
+                <img src="" alt="" id="modalGalleryImage">
+                <button class="gallery-nav prev" id="galleryPrev" aria-label="Previous image">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                </button>
+                <button class="gallery-nav next" id="galleryNext" aria-label="Next image">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </button>
+                <div class="gallery-dots" id="galleryDots"></div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="modal-title" id="modalTitle"></h2>
+                        <p class="modal-subtitle" id="modalSubtitle"></p>
+                    </div>
+                    <div class="modal-price">
+                        <div class="modal-price-value" id="modalPrice"></div>
+                        <div class="modal-price-finance">Finance available from £299/mo</div>
+                    </div>
+                </div>
+                
+                <div class="modal-specs-grid" id="modalSpecs"></div>
+                
+                <div class="modal-description">
+                    <h3>Vehicle Description</h3>
+                    <div id="modalDescription"></div>
+                </div>
+                
+                <div class="modal-features">
+                    <h3>Key Features</h3>
+                    <div class="features-grid" id="modalFeatures"></div>
+                </div>
+                
+                <div class="modal-actions">
+                    <a href="#contact" class="btn btn-primary" id="modalEnquireBtn">Enquire About This Vehicle</a>
+                    <a href="tel:07700900000" class="btn btn-outline">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        Call Us Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // SAMPLE VEHICLE DATA
+        // ============================================
+        // Replace this array with your actual inventory data
+        // You can populate this from your stock partner's feed
+        
+        const vehicles = [
+            {
+                id: 1,
+                year: 2022,
+                make: "BMW",
+                model: "M4 Competition",
+                trim: "xDrive",
+                price: 62995,
+                mileage: 8500,
+                color: "Brooklyn Grey",
+                fuelType: "Petrol",
+                transmission: "Automatic",
+                engine: "3.0L Twin-Turbo",
+                power: "503 bhp",
+                acceleration: "0-62 in 3.5s",
+                images: [
+                    "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800&q=80",
+                    "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80"
+                ],
+                description: "Stunning BMW M4 Competition xDrive finished in Brooklyn Grey metallic with full Merino leather interior. This exceptional example has covered just 8,500 miles from new and comes with the desirable M Carbon bucket seats, M Carbon exterior package, and head-up display. Full BMW service history with recent service completed. One previous keeper from new.",
+                features: ["M Carbon Bucket Seats", "Head-Up Display", "Harman Kardon Audio", "360° Camera", "M Carbon Exterior Pack", "Adaptive LED Headlights", "Heated Steering Wheel", "Wireless Charging"],
+                badges: ["featured", "low-miles"]
+            },
+            {
+                id: 2,
+                year: 2021,
+                make: "Mercedes-Benz",
+                model: "E300",
+                trim: "AMG Line Premium",
+                price: 34995,
+                mileage: 24000,
+                color: "Obsidian Black",
+                fuelType: "Hybrid",
+                transmission: "Automatic",
+                engine: "2.0L Turbo Hybrid",
+                power: "320 bhp",
+                acceleration: "0-62 in 5.7s",
+                images: [
+                    "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
+                    "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80"
+                ],
+                description: "Immaculate Mercedes-Benz E300 AMG Line Premium finished in Obsidian Black with Nappa leather interior. Comprehensive specification including panoramic sunroof, Burmester audio system, and MBUX navigation. Full Mercedes service history. Two owners from new.",
+                features: ["Panoramic Sunroof", "Burmester Audio", "MBUX Navigation", "Ambient Lighting", "Heated & Ventilated Seats", "Keyless Entry", "360° Camera", "Active Parking Assist"],
+                badges: []
+            },
+            {
+                id: 3,
+                year: 2023,
+                make: "Audi",
+                model: "RS Q8",
+                trim: "Vorsprung",
+                price: 98995,
+                mileage: 6200,
+                color: "Nardo Grey",
+                fuelType: "Petrol",
+                transmission: "Automatic",
+                engine: "4.0L V8 Twin-Turbo",
+                power: "592 bhp",
+                acceleration: "0-62 in 3.8s",
+                images: [
+                    "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
+                    "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80"
+                ],
+                description: "Spectacular Audi RS Q8 Vorsprung in exclusive Nardo Grey with black Valcona leather and carbon inlays. Top specification including ceramic brakes, night vision assist, and Bang & Olufsen 3D sound. Audi warranty until 2026. One owner, delivery mileage.",
+                features: ["Ceramic Brakes", "Night Vision", "Bang & Olufsen 3D", "Matrix LED", "Air Suspension", "Carbon Inlays", "Black Pack", "23\" Alloys"],
+                badges: ["featured", "low-miles"]
+            },
+            {
+                id: 4,
+                year: 2020,
+                make: "Volkswagen",
+                model: "Golf R",
+                trim: "Performance Pack",
+                price: 28995,
+                mileage: 31000,
+                color: "Lapiz Blue",
+                fuelType: "Petrol",
+                transmission: "Automatic",
+                engine: "2.0L TSI",
+                power: "320 bhp",
+                acceleration: "0-62 in 4.6s",
+                images: [
+                    "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=80"
+                ],
+                description: "Well-maintained Golf R with Performance Pack finished in iconic Lapiz Blue. Features include 19\" Pretoria alloys, Akrapovič exhaust, and adaptive chassis control. Full VW service history with recent major service. Great all-round performance car.",
+                features: ["Performance Pack", "Akrapovič Exhaust", "DCC Suspension", "19\" Pretorias", "Virtual Cockpit", "Discover Pro Nav", "Heated Seats", "Dynaudio Sound"],
+                badges: []
+            },
+            {
+                id: 5,
+                year: 2022,
+                make: "Range Rover",
+                model: "Sport",
+                trim: "HSE Dynamic",
+                price: 74995,
+                mileage: 18500,
+                color: "Santorini Black",
+                fuelType: "Diesel",
+                transmission: "Automatic",
+                engine: "3.0L D300",
+                power: "300 bhp",
+                acceleration: "0-62 in 6.6s",
+                images: [
+                    "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80"
+                ],
+                description: "New shape Range Rover Sport HSE Dynamic in Santorini Black with Windsor leather. Exceptional specification featuring sliding panoramic roof, Meridian 3D audio, and heated/cooled front and rear seats. One owner, full Land Rover history.",
+                features: ["Panoramic Roof", "Meridian 3D Audio", "Heated/Cooled Seats", "Air Suspension", "Matrix LED", "Head-Up Display", "Adaptive Cruise", "Terrain Response"],
+                badges: ["featured"]
+            },
+            {
+                id: 6,
+                year: 2019,
+                make: "Porsche",
+                model: "911",
+                trim: "Carrera S",
+                price: 89995,
+                mileage: 22000,
+                color: "GT Silver",
+                fuelType: "Petrol",
+                transmission: "Automatic",
+                engine: "3.0L Twin-Turbo",
+                power: "450 bhp",
+                acceleration: "0-62 in 3.5s",
+                images: [
+                    "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80"
+                ],
+                description: "Beautiful 992 Carrera S in GT Silver metallic with extended black leather interior. Sport Chrono package, PASM suspension, and Bose surround sound. Comprehensive Porsche service history. Two careful owners, always garaged.",
+                features: ["Sport Chrono", "PASM Suspension", "Bose Surround", "Sport Exhaust", "LED Matrix", "14-Way Seats", "Apple CarPlay", "Parking Sensors"],
+                badges: []
+            },
+            {
+                id: 7,
+                year: 2021,
+                make: "Ford",
+                model: "Focus",
+                trim: "ST-3",
+                price: 24995,
+                mileage: 19800,
+                color: "Performance Blue",
+                fuelType: "Petrol",
+                transmission: "Manual",
+                engine: "2.3L EcoBoost",
+                power: "280 bhp",
+                acceleration: "0-62 in 5.7s",
+                images: [
+                    "https://images.unsplash.com/photo-1551830820-330a71b99659?w=800&q=80"
+                ],
+                description: "Fantastic Focus ST-3 in Performance Blue with Recaro leather sports seats. Full ST specification including head-up display, B&O sound system, and limited-slip differential. One owner from new with full Ford service history.",
+                features: ["Recaro Leather Seats", "Limited-Slip Diff", "Head-Up Display", "B&O Audio", "Sync 3 Nav", "Adaptive Dampers", "Launch Control", "Rev Matching"],
+                badges: ["low-miles"]
+            },
+            {
+                id: 8,
+                year: 2023,
+                make: "Tesla",
+                model: "Model 3",
+                trim: "Long Range",
+                price: 38995,
+                mileage: 8900,
+                color: "Pearl White",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                engine: "Dual Motor AWD",
+                power: "366 bhp",
+                acceleration: "0-62 in 4.2s",
+                images: [
+                    "https://images.unsplash.com/photo-1536700503339-1e4b06520771?w=800&q=80"
+                ],
+                description: "Nearly new Tesla Model 3 Long Range in Pearl White with black premium interior. Full Self-Driving capability enabled, tow bar fitted. One owner, transferable Tesla warranty remaining. Rapid charging capability for maximum convenience.",
+                features: ["Full Self-Driving", "Premium Interior", "Tow Bar Fitted", "Glass Roof", "Premium Audio", "Heated All Seats", "Sentry Mode", "Supercharger Access"],
+                badges: ["featured", "low-miles"]
+            },
+            {
+                id: 9,
+                year: 2020,
+                make: "Jaguar",
+                model: "F-Pace",
+                trim: "R-Dynamic S",
+                price: 31995,
+                mileage: 42000,
+                color: "Firenze Red",
+                fuelType: "Diesel",
+                transmission: "Automatic",
+                engine: "2.0L D200",
+                power: "204 bhp",
+                acceleration: "0-62 in 8.0s",
+                images: [
+                    "https://images.unsplash.com/photo-1606220838315-056192d5e927?w=800&q=80"
+                ],
+                description: "Stylish F-Pace R-Dynamic S in Firenze Red with ebony leather interior. Well equipped with panoramic roof, Meridian sound, and adaptive dynamics. Full Jaguar service history. Two owners, well maintained throughout.",
+                features: ["Panoramic Roof", "Meridian Sound", "Adaptive Dynamics", "Powered Tailgate", "10\" Touchscreen", "Apple CarPlay", "360° Camera", "Keyless Entry"],
+                badges: []
+            }
+        ];
+
+        // ============================================
+        // APPLICATION STATE
+        // ============================================
+        let filteredVehicles = [...vehicles];
+        let currentFilter = 'all';
+        let currentSort = 'price-asc';
+        let selectedMake = '';
+        let selectedModel = '';
+        let selectedMaxPrice = '';
+        let currentVehicle = null;
+        let currentGalleryIndex = 0;
+
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
+        const header = document.getElementById('header');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        const mobileNavClose = document.getElementById('mobileNavClose');
+        const inventoryGrid = document.getElementById('inventoryGrid');
+        const resultsCount = document.getElementById('resultsCount');
+        const filterTags = document.getElementById('filterTags');
+        const sortSelect = document.getElementById('sortSelect');
+        const searchMake = document.getElementById('searchMake');
+        const searchModel = document.getElementById('searchModel');
+        const searchPrice = document.getElementById('searchPrice');
+        const searchBtn = document.getElementById('searchBtn');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const vehicleModal = document.getElementById('vehicleModal');
+        const modalClose = document.getElementById('modalClose');
+        const contactForm = document.getElementById('contactForm');
+        const contactVehicle = document.getElementById('contactVehicle');
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        function init() {
+            populateMakeFilter();
+            populateContactVehicleSelect();
+            renderVehicles();
+            setupEventListeners();
+        }
+
+        // ============================================
+        // FILTER & SEARCH FUNCTIONS
+        // ============================================
+        function populateMakeFilter() {
+            const makes = [...new Set(vehicles.map(v => v.make))].sort();
+            searchMake.innerHTML = '<option value="">All Makes</option>' + 
+                makes.map(make => `<option value="${make}">${make}</option>`).join('');
+        }
+
+        function populateModelFilter(make) {
+            const models = make 
+                ? [...new Set(vehicles.filter(v => v.make === make).map(v => v.model))].sort()
+                : [];
+            searchModel.innerHTML = '<option value="">All Models</option>' + 
+                models.map(model => `<option value="${model}">${model}</option>`).join('');
+        }
+
+        function populateContactVehicleSelect() {
+            contactVehicle.innerHTML = '<option value="">Select a vehicle (optional)</option>' +
+                vehicles.map(v => `<option value="${v.id}">${v.year} ${v.make} ${v.model} - £${v.price.toLocaleString()}</option>`).join('');
+        }
+
+        function filterVehicles() {
+            filteredVehicles = vehicles.filter(v => {
+                // Filter by make
+                if (selectedMake && v.make !== selectedMake) return false;
+                
+                // Filter by model
+                if (selectedModel && v.model !== selectedModel) return false;
+                
+                // Filter by price
+                if (selectedMaxPrice && v.price > parseInt(selectedMaxPrice)) return false;
+                
+                // Filter by fuel/transmission type
+                if (currentFilter !== 'all') {
+                    const filterLower = currentFilter.toLowerCase();
+                    if (!v.fuelType.toLowerCase().includes(filterLower) && 
+                        !v.transmission.toLowerCase().includes(filterLower)) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            sortVehicles();
+            renderVehicles();
+        }
+
+        function sortVehicles() {
+            filteredVehicles.sort((a, b) => {
+                switch (currentSort) {
+                    case 'price-asc': return a.price - b.price;
+                    case 'price-desc': return b.price - a.price;
+                    case 'mileage-asc': return a.mileage - b.mileage;
+                    case 'year-desc': return b.year - a.year;
+                    default: return 0;
+                }
+            });
+        }
+
+        // ============================================
+        // RENDER FUNCTIONS
+        // ============================================
+        function renderVehicles() {
+            resultsCount.textContent = filteredVehicles.length;
+            
+            if (filteredVehicles.length === 0) {
+                inventoryGrid.innerHTML = `
+                    <div class="no-results" style="grid-column: 1 / -1;">
+                        <h3>No vehicles found</h3>
+                        <p>Try adjusting your search filters</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            inventoryGrid.innerHTML = filteredVehicles.map(vehicle => `
+                <article class="vehicle-card" data-id="${vehicle.id}">
+                    <div class="vehicle-card-image">
+                        <img src="${vehicle.images[0]}" alt="${vehicle.year} ${vehicle.make} ${vehicle.model}" loading="lazy">
+                        ${vehicle.badges.length ? `
+                            <div class="vehicle-card-badges">
+                                ${vehicle.badges.includes('featured') ? '<span class="vehicle-badge featured">Featured</span>' : ''}
+                                ${vehicle.badges.includes('low-miles') ? '<span class="vehicle-badge low-miles">Low Miles</span>' : ''}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="vehicle-card-content">
+                        <div class="vehicle-card-header">
+                            <h3 class="vehicle-card-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h3>
+                            <p class="vehicle-card-subtitle">${vehicle.trim}</p>
+                        </div>
+                        <div class="vehicle-card-price">
+                            £${vehicle.price.toLocaleString()}
+                            <small>Finance available</small>
+                        </div>
+                        <div class="vehicle-card-specs">
+                            <div class="vehicle-spec">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                                ${vehicle.mileage.toLocaleString()} mi
+                            </div>
+                            <div class="vehicle-spec">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                    <polyline points="14 2 14 8 20 8"/>
+                                </svg>
+                                ${vehicle.fuelType}
+                            </div>
+                            <div class="vehicle-spec">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="3"/>
+                                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                                </svg>
+                                ${vehicle.transmission}
+                            </div>
+                            <div class="vehicle-spec">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                                    <line x1="6" y1="1" x2="6" y2="4"/>
+                                    <line x1="10" y1="1" x2="10" y2="4"/>
+                                    <line x1="14" y1="1" x2="14" y2="4"/>
+                                </svg>
+                                ${vehicle.power}
+                            </div>
+                        </div>
+                        <div class="vehicle-card-footer">
+                            <button class="btn btn-primary view-details-btn">View Details</button>
+                            <button class="btn btn-outline enquire-btn">Enquire</button>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+            
+            // Add click handlers
+            document.querySelectorAll('.vehicle-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('.enquire-btn')) {
+                        const vehicleId = parseInt(card.dataset.id);
+                        contactVehicle.value = vehicleId;
+                        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+                        return;
+                    }
+                    
+                    const vehicleId = parseInt(card.dataset.id);
+                    openVehicleModal(vehicleId);
+                });
+            });
+        }
+
+        // ============================================
+        // MODAL FUNCTIONS
+        // ============================================
+        function openVehicleModal(vehicleId) {
+            currentVehicle = vehicles.find(v => v.id === vehicleId);
+            if (!currentVehicle) return;
+            
+            currentGalleryIndex = 0;
+            
+            // Populate modal
+            document.getElementById('modalTitle').textContent = 
+                `${currentVehicle.year} ${currentVehicle.make} ${currentVehicle.model}`;
+            document.getElementById('modalSubtitle').textContent = 
+                `${currentVehicle.trim} • ${currentVehicle.color}`;
+            document.getElementById('modalPrice').textContent = 
+                `£${currentVehicle.price.toLocaleString()}`;
+            
+            updateGalleryImage();
+            renderGalleryDots();
+            
+            // Specs
+            document.getElementById('modalSpecs').innerHTML = `
+                <div class="modal-spec-item">
+                    <span class="modal-spec-label">Mileage</span>
+                    <span class="modal-spec-value">${currentVehicle.mileage.toLocaleString()} miles</span>
+                </div>
+                <div class="modal-spec-item">
+                    <span class="modal-spec-label">Year</span>
+                    <span class="modal-spec-value">${currentVehicle.year}</span>
+                </div>
+                <div class="modal-spec-item">
+                    <span class="modal-spec-label">Fuel Type</span>
+                    <span class="modal-spec-value">${currentVehicle.fuelType}</span>
+                </div>
+                <div class="modal-spec-item">
+                    <span class="modal-spec-label">Transmission</span>
+                    <span class="modal-spec-value">${currentVehicle.transmission}</span>
+                </div>
+                <div class="modal-spec-item">
+                    <span class="modal-spec-label">Engine</span>
+                    <span class="modal-spec-value">${currentVehicle.engine}</span>
+                </div>
+                <div class="modal-spec-item">
+                    <span class="modal-spec-label">Power</span>
+                    <span class="modal-spec-value">${currentVehicle.power}</span>
+                </div>
+            `;
+            
+            // Description
+            document.getElementById('modalDescription').innerHTML = 
+                `<p>${currentVehicle.description}</p>`;
+            
+            // Features
+            document.getElementById('modalFeatures').innerHTML = currentVehicle.features.map(f => `
+                <div class="feature-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"/>
+                    </svg>
+                    ${f}
+                </div>
+            `).join('');
+            
+            // Show modal
+            modalOverlay.classList.add('open');
+            vehicleModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVehicleModal() {
+            modalOverlay.classList.remove('open');
+            vehicleModal.classList.remove('open');
+            document.body.style.overflow = '';
+            currentVehicle = null;
+        }
+
+        function updateGalleryImage() {
+            if (!currentVehicle) return;
+            const img = document.getElementById('modalGalleryImage');
+            img.src = currentVehicle.images[currentGalleryIndex];
+            img.alt = `${currentVehicle.year} ${currentVehicle.make} ${currentVehicle.model}`;
+            
+            document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentGalleryIndex);
+            });
+        }
+
+        function renderGalleryDots() {
+            if (!currentVehicle) return;
+            const dotsContainer = document.getElementById('galleryDots');
+            dotsContainer.innerHTML = currentVehicle.images.map((_, i) => 
+                `<span class="gallery-dot ${i === 0 ? 'active' : ''}"></span>`
+            ).join('');
+        }
+
+        // ============================================
+        // EVENT LISTENERS
+        // ============================================
+        function setupEventListeners() {
+            // Header scroll
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('scrolled', window.scrollY > 20);
+            });
+            
+            // Mobile menu
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileNav.classList.add('open');
+            });
+            
+            [mobileNavOverlay, mobileNavClose].forEach(el => {
+                el.addEventListener('click', () => {
+                    mobileNav.classList.remove('open');
+                });
+            });
+            
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.remove('open');
+                });
+            });
+            
+            // Filters
+            filterTags.addEventListener('click', (e) => {
+                if (e.target.classList.contains('filter-tag')) {
+                    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentFilter = e.target.dataset.filter;
+                    filterVehicles();
+                }
+            });
+            
+            sortSelect.addEventListener('change', () => {
+                currentSort = sortSelect.value;
+                sortVehicles();
+                renderVehicles();
+            });
+            
+            searchMake.addEventListener('change', () => {
+                selectedMake = searchMake.value;
+                populateModelFilter(selectedMake);
+                selectedModel = '';
+            });
+            
+            searchModel.addEventListener('change', () => {
+                selectedModel = searchModel.value;
+            });
+            
+            searchPrice.addEventListener('change', () => {
+                selectedMaxPrice = searchPrice.value;
+            });
+            
+            searchBtn.addEventListener('click', filterVehicles);
+            
+            // Modal
+            modalClose.addEventListener('click', closeVehicleModal);
+            modalOverlay.addEventListener('click', closeVehicleModal);
+            
+            document.getElementById('galleryPrev').addEventListener('click', () => {
+                if (!currentVehicle) return;
+                currentGalleryIndex = (currentGalleryIndex - 1 + currentVehicle.images.length) % currentVehicle.images.length;
+                updateGalleryImage();
+            });
+            
+            document.getElementById('galleryNext').addEventListener('click', () => {
+                if (!currentVehicle) return;
+                currentGalleryIndex = (currentGalleryIndex + 1) % currentVehicle.images.length;
+                updateGalleryImage();
+            });
+            
+            document.getElementById('modalEnquireBtn').addEventListener('click', () => {
+                if (currentVehicle) {
+                    contactVehicle.value = currentVehicle.id;
+                }
+                closeVehicleModal();
+            });
+            
+            // Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeVehicleModal();
+                    mobileNav.classList.remove('open');
+                }
+            });
+            
+            // Contact form
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const formData = {
+                    name: document.getElementById('contactName').value,
+                    phone: document.getElementById('contactPhone').value,
+                    email: document.getElementById('contactEmail').value,
+                    vehicle: contactVehicle.value,
+                    message: document.getElementById('contactMessage').value
+                };
+                
+                // Here you would normally send to your backend
+                // For now, just show a success message
+                alert('Thank you for your enquiry! We\'ll be in touch shortly.');
+                contactForm.reset();
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
