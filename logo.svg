@@ -1,0 +1,32 @@
+<svg width="200" height="60" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hey Drive Logo -->
+  <!-- Concept: Waving hand gesture (hey!) with speed/motion lines = quick service -->
+  
+  <defs>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a962"/>
+      <stop offset="100%" style="stop-color:#b8943d"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Icon: Stylized waving hand with motion lines -->
+  <g transform="translate(5, 12)">
+    <!-- Hand/wave gesture -->
+    <path d="M12 28C12 28 15 16 21 13C24 11.5 27 13 27 17.5C27 21 25.5 25 25.5 25" 
+          stroke="#2c3e50" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <path d="M25.5 25C25.5 25 28.5 14 33 13C36 12 38.5 14.5 37 19C35.5 23.5 32 28 32 28" 
+          stroke="#2c3e50" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    <path d="M32 28C32 28 35.5 20 40 20C43 20 44.5 23 43 26C41.5 29 37 34 37 34" 
+          stroke="#2c3e50" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+    
+    <!-- Speed/motion lines (showing fast service) -->
+    <path d="M4 21H15" stroke="url(#accentGrad)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M1 28H12" stroke="url(#accentGrad)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M6 35H17" stroke="url(#accentGrad)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Wordmark -->
+  <text x="58" y="40" font-family="'Playfair Display', Georgia, serif" font-size="32" font-weight="600" fill="#1a252f">Hey</text>
+  <text x="113" y="40" font-family="'DM Sans', -apple-system, sans-serif" font-size="32" font-weight="500" fill="#2c3e50">Drive</text>
+  
+</svg>
