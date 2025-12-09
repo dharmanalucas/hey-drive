@@ -1,0 +1,30 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hey Drive Icon Mark -->
+  <!-- Waving hand + speed lines = fast, friendly service -->
+  
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#c9a962"/>
+      <stop offset="100%" style="stop-color:#b8943d"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle (optional - remove for transparent) -->
+  <circle cx="32" cy="32" r="30" fill="#2c3e50"/>
+  
+  <!-- Hand/wave gesture -->
+  <g transform="translate(12, 14)">
+    <path d="M14 28C14 28 17 18 22 15.5C24.5 14.3 27 15.5 27 19C27 22 25.5 25.5 25.5 25.5" 
+          stroke="white" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M25.5 25.5C25.5 25.5 28 17 32 16C34.5 15.3 36.5 17 35.5 20.5C34.5 24 32 27.5 32 27.5" 
+          stroke="white" stroke-width="3" stroke-linecap="round" fill="none"/>
+    <path d="M32 27.5C32 27.5 35 21 38.5 21C41 21 42 23.5 41 26C40 28.5 37 32 37 32" 
+          stroke="white" stroke-width="3" stroke-linecap="round" fill="none"/>
+    
+    <!-- Speed lines -->
+    <path d="M4 22H13" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M2 28H11" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M5 34H14" stroke="url(#gold)" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  
+</svg>
